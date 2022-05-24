@@ -9,6 +9,7 @@ echo "-----> Installing PrinceXML $PRINCE_VERSION"
 BUILD_DIR="."
 CACHE_DIR=$1
 ENV_DIR="/platform/env/"
+BP_DIR=$CNB_BUILDPACK_DIR
 
 LICENSE_PATH=$ENV_DIR/PRINCE_LICENSE
 
@@ -28,7 +29,7 @@ EOF
 
 
 echo "-----> Installing fonts"
-FONTS_SOURCE_DIR="$BUILD_DIR/../fonts"
+FONTS_SOURCE_DIR="$BP_DIR/fonts"
 FONTS_TARGET_DIR=/app/.fonts
 
 mkdir -p "$FONTS_TARGET_DIR"
@@ -36,5 +37,5 @@ cp $FONTS_SOURCE_DIR/* $FONTS_TARGET_DIR/
 fc-cache -f -v
 
 echo "-----> Installing fonts.css"
-cp $BUILD_DIR/../fonts.css /app/lib/prince/style
+cp $BP_DIR/fonts.css /app/lib/prince/style
 
