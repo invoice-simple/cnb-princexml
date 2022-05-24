@@ -27,18 +27,18 @@ cat >$BUILD_DIR/bin/prince <<EOF
 exec /app/lib/prince/bin/prince --prefix="/app/lib/prince" "\$@"
 EOF
 
-mkdir -p /app/lib/prince
-cp -r ./.downloads/prince-$PRINCE_VERSION-linux-generic-x86_64/lib/prince/* /app/lib/prince/
+mkdir -p $BUILD_DIR/lib/prince
+cp -r ./.downloads/prince-$PRINCE_VERSION-linux-generic-x86_64/lib/prince/* $BUILD_DIR/lib/prince/
 
 echo "-----> Installing fonts"
 FONTS_SOURCE_DIR="$BP_DIR/fonts"
-FONTS_TARGET_DIR=/app/.fonts
+FONTS_TARGET_DIR=$BUILD_DIR/.fonts
 
 mkdir -p "$FONTS_TARGET_DIR"
 cp $FONTS_SOURCE_DIR/* $FONTS_TARGET_DIR/
 fc-cache -f -v
 
 echo "-----> Installing fonts.css"
-mkdir -p /app/lib/prince/style
-cp $BP_DIR/fonts.css /app/lib/prince/style
+mkdir -p $BUILD_DIR/lib/prince/style
+cp $BP_DIR/fonts.css $BUILD_DIR/lib/prince/style
 
