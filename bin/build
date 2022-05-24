@@ -37,5 +37,6 @@ cp $FONTS_SOURCE_DIR/* $FONTS_TARGET_DIR/
 fc-cache -f -v
 
 echo "-----> Installing fonts.css"
+mkdir -p $BUILD_DIR/lib/prince/style
 cp $BP_DIR/fonts.css $BUILD_DIR/lib/prince/style
 
