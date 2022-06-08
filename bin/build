@@ -27,6 +27,8 @@ cat >$BUILD_DIR/bin/prince <<EOF
 exec /app/lib/prince/bin/prince --prefix="/app/lib/prince" "\$@"
 EOF
 
+chmod 700 $BUILD_DIR/bin/prince
+
 mkdir -p $BUILD_DIR/lib/prince
 cp -r ./.downloads/prince-$PRINCE_VERSION-linux-generic-x86_64/lib/prince/* $BUILD_DIR/lib/prince/
 
@@ -41,4 +43,46 @@ fc-cache -f -v
 echo "-----> Installing fonts.css"
 mkdir -p $BUILD_DIR/lib/prince/style
 cp $BP_DIR/fonts.css $BUILD_DIR/lib/prince/style
+
+
+
+#!/bin/bash
+
+PRINCE_VERSION="13.3"
+echo "-----> Installing PrinceXML $PRINCE_VERSION"
+[ -d .downloads ] || mkdir .downloads
+(cd .downloads; [ -d "prince-$PRINCE_VERSION-linux-amd64-static" ] ||
+  curl -s https://www.princexml.com/download/prince-$PRINCE_VERSION-linux-generic-x86_64.tar.gz | tar xzf -)
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+ENV_DIR=$3
+
+LICENSE_PATH=$ENV_DIR/PRINCE_LICENSE
+
+if [ -f ${LICENSE_PATH} ]; then
+  echo "       Configuring license file"
+  echo "       Adding license at ${LICENSE_PATH} to prince"
+  cp ${LICENSE_PATH} ./.downloads/prince-$PRINCE_VERSION-linux-generic-x86_64/lib/prince/license/license.dat
+else
+  echo "       No license found"
+fi
+
+echo $1 | ./.downloads/prince-$PRINCE_VERSION-linux-generic-x86_64/install.sh
+cat >$1/bin/prince <<EOF
+#!/bin/sh
+exec /app/lib/prince/bin/prince --prefix="/app/lib/prince" "\$@"
+EOF
+
+
+echo "-----> Installing fonts"
+FONTS_SOURCE_DIR="$(dirname $0)/../fonts"
+FONTS_TARGET_DIR=$1/.fonts
+
+mkdir -p "$FONTS_TARGET_DIR"
+cp $FONTS_SOURCE_DIR/* $FONTS_TARGET_DIR/
+fc-cache -f -v
+
+echo "-----> Installing fonts.css"
+cp $(dirname $0)/../fonts.css $BUILD_DIR/lib/prince/style
 
