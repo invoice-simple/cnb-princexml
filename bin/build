@@ -24,7 +24,7 @@ fi
 echo $BUILD_DIR | ./.downloads/prince-$PRINCE_VERSION-linux-generic-x86_64/install.sh
 cat >$BUILD_DIR/bin/prince <<EOF
 #!/bin/sh
-exec /app/lib/prince/bin/prince --prefix="/app/lib/prince" "\$@"
+exec /app/lib/prince/bin/prince --prefix="/workspace/lib/prince" "\$@"
 EOF
 
 chmod 700 $BUILD_DIR/bin/prince
