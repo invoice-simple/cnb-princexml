@@ -6,6 +6,11 @@
 /* standard "serif" font family */
 
 @font-face {
+    font-family: serif; /* last resort for adding emoji support */
+    src: prince-lookup("NotoColorEmoji")
+}
+
+@font-face {
     font-family: serif; /* last resort font */
     src: prince-lookup("Arial")
 }
