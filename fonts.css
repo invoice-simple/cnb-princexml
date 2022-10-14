@@ -7,7 +7,7 @@
 
 @font-face {
     font-family: serif; /* last resort for adding emoji support */
-    src: prince-lookup("NotoColorEmoji")
+    src: prince-lookup("Noto Color Emoji")
 }
 
 @font-face {
@@ -164,6 +164,11 @@
 @font-face {
     font-family: sans-serif; /* Symbols */
     src: prince-lookup("OpenSymbol")
+}
+
+@font-face {
+    font-family: sans-serif; /* last resort for adding emoji support */
+    src: prince-lookup("Noto Color Emoji")
 }
 
 @font-face {
